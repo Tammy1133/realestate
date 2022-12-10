@@ -36,6 +36,7 @@ const Search = () => {
 
   const [loading, setLoading] = useState(true);
   const [toggleSearchFilters, setToggleSearchFilters] = useState(true);
+  const [toggleSubmit, setToggleSubmit] = useState(false);
 
   const navigate = useNavigate();
 
@@ -71,14 +72,18 @@ const Search = () => {
     <div>
       <div className="d-flex justify-content-center">
         <button
-          onClick={() => setToggleSearchFilters(!toggleSearchFilters)}
-          className="btn btn-danger mx-3 mt-3"
+          onClick={() => {
+            setToggleSearchFilters(!toggleSearchFilters);
+            setToggleSubmit(!toggleSubmit);
+          }}
+          className="btn btn-danger mx-3 mt-3 my-4"
         >
           Toggle search
         </button>
         <button
           onClick={() => navigate("/")}
-          className="btn btn-secondary mx-3 mt-3"
+          style={{ width: "80px", height: "40px" }}
+          className="btn btn-secondary mx-3 mt-3 my-3"
         >
           Back
         </button>
@@ -166,19 +171,22 @@ const Search = () => {
           </div>
         </div>
       )}
-      <div className="d-flex align-items-center justify-content-center">
-        {" "}
-        <button
-          className="button-90"
-          onClick={() => {
-            setChangeValueToUpdateState(!changeValueToUpdateState);
-            setProperties([]);
-            setLoading(true);
-          }}
-        >
-          Submit
-        </button>
-      </div>
+
+      {!toggleSubmit && (
+        <div className="d-flex align-items-center justify-content-center">
+          {" "}
+          <button
+            className="button-90"
+            onClick={() => {
+              setChangeValueToUpdateState(!changeValueToUpdateState);
+              setProperties([]);
+              setLoading(true);
+            }}
+          >
+            Submit
+          </button>
+        </div>
+      )}
 
       <div className="below">
         <h3
